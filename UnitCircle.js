@@ -1,3 +1,8 @@
+/**
+ * TRIGONOMETRIC UNIT CIRCLE
+ * @author Kaden (Winterlicia) <>
+ */
+
 //Initialize canvas / cartesian plane
 const graph = document.getElementById("cartesian-plane");
 var context = graph.getContext("2d");
@@ -10,7 +15,6 @@ initGraph();
 var num = "";
 input.addEventListener("input", function() {
     num = input.value;
-    console.log(num);
 
     if (num.includes("pi")) {
         num = eval(num.replace("pi", String(Math.PI)));
@@ -19,21 +23,24 @@ input.addEventListener("input", function() {
     //fix num exceptions: e.g. if there are things multiplying the "pi", have to add a multiplication
     
     let sin = document.getElementById("sinx");
-    sin.textContent = "sin(x)= "+round(Math.sin(num)); 
+    sin.textContent = "sin(x)= "+ Math.sin(num).toFixed(4); 
     let cos = document.getElementById("cosx");
-    cos.textContent = "cos(x)= "+round(Math.cos(num));
+    cos.textContent = "cos(x)= "+ Math.cos(num).toFixed(4);
     let tan = document.getElementById("tanx");
-    tan.textContent = "tan(x)= "+round(Math.tan(num));
-    let csc = round(1/Math.sin(num));
-    let sec = round(1/Math.cos(num));
-    let cot = round(1/Math.tan(num));
+    tan.textContent = "tan(x)= "+ (Math.sin(num).toFixed(4)/Math.cos(num).toFixed(4)).toFixed(4);
+    let csc = document.getElementById("cscx");
+    csc.textContent = "csc(x)= "+ (1/Math.sin(num).toFixed(4)).toFixed(4); 
+    let sec = document.getElementById("secx");
+    sec.textContent = "sec(x)= "+ (1/Math.cos(num).toFixed(4)).toFixed(4);
+    let cot = document.getElementById("cotx");
+    cot.textContent = "cot(x)= "+ (Math.cos(num).toFixed(4)/Math.sin(num).toFixed(4)).toFixed(4);
     
     console.log(sin, " ", cos, " ",tan, " ", csc, " ", sec, " ", cot, " ");
 
     //Draw the point on the cartesian plane: (x, y) --> (cos, sin)
     //Get rid of the String values to print the point correctly
-    cos = round(Math.cos(num));
-    sin = round(Math.sin(num));
+    cos = Math.cos(num).toFixed(4);
+    sin = Math.sin(num).toFixed(4);
     plot(cos, sin);
 });
 
@@ -68,11 +75,6 @@ function initGraph() {
     context.fillText("1", 205, 20);
     context.fillText("-1", 10, 190);
     context.fillText("-1", 205, 390);
-}
-
-//Round values to four decimal places
-function round(value) {
-    return +(Math.round(value + "e+4") + "e-4");
 }
 
 //Draw points on the cartesian plane:
