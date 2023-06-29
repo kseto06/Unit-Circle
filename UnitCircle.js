@@ -100,12 +100,21 @@ function plot(x, y) {
     context.fill();
     context.stroke();
 
-    //Draw the line to the point
+    //Draw the terminal arm to the point
     context.beginPath();
     context.moveTo(200, 200); //Always begin at the origin 
     context.lineTo(Math.abs(x), Math.abs(y)); //Draw a line to the (x, y) value
     context.lineWidth = 3;
     context.stroke();
     context.lineWidth = 1;
+    context.closePath();
+
+    //Draw the y-line
+    context.beginPath();
+    context.moveTo(Math.abs(x), 200); //Begin at y-axis of 200, draw line to the point
+    context.lineTo(Math.abs(x), Math.abs(y));
+    context.setLineDash([5, 5]); //dotted line
+    context.stroke();
+    context.setLineDash([]);
     context.closePath();
 }
