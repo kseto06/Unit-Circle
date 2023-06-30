@@ -81,6 +81,9 @@ function initGraph() {
 //Since height/width is 400 x 400, everything on the unit circle must be multiplied by a factor of 400/2 = 200.
 //Also need to translate to the right by 200, and translate down by 200
 function plot(x, y) {
+    //Store original values of x and y:
+    let cos = x;
+    let sin = y;
     //Scaling: Multiply by a factor of 200:
     x = x*200;
     y = y*200;
@@ -117,4 +120,36 @@ function plot(x, y) {
     context.stroke();
     context.setLineDash([]);
     context.closePath();
+
+    //Write the labels for the triangle, different for Q1, Q4 and Q2, Q3
+    context.font = "11px Arial";
+    if (cos == 1 || cos == -1) { //omit x-values at 90, 270 degrees
+        context.fillText(cos, (Math.abs(x)+175)/2, 213);
+    } else if (sin == 1 || sin == -1) { //omit y-values at 0, 180 degrees
+        context.fillText(sin, 210, (Math.abs(y)+200)/2); 
+    } 
+
+    if (x > 200) {        
+        context.fillText(cos, (Math.abs(x)+175)/2, 213);
+
+        context.save();
+        //Switch the x and y coordinates to rotate the y-label
+        context.translate(Math.abs(x), Math.abs(y));
+        context.rotate(Math.PI/2);
+        context.fillText(sin, (y+180)/2, -10);
+        context.restore();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    if (x < 200) {
+        context.fillText(cos, (Math.abs(x)+175)/2, 213);
+
+        context.save();
+        //Switch the x and y coordinates to rotate the y-label
+        context.translate(Math.abs(x), Math.abs(y));
+        context.rotate(Math.PI/2);
+        context.fillText(sin, (y+180)/2, 16);
+        context.restore();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+    }
 }
