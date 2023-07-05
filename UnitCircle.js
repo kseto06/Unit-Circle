@@ -17,7 +17,13 @@ input.addEventListener("input", function() {
     num = input.value;
 
     if (num.includes("pi")) {
-        num = eval(num.replace("pi", String(Math.PI)));
+        try {
+            num = math.evaluate(num);
+            document.getElementById("note").textContent = "";
+        } catch {
+            console.log("Invalid Expression");
+            document.getElementById("note").textContent = "Invalid Expression";
+        }
     }
 
     //fix num exceptions: e.g. if there are things multiplying the "pi", have to add a multiplication
